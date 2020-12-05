@@ -235,7 +235,15 @@ public class AVLTree {
     */
    public String min()
    {
-	   return "42"; // to be replaced by student code
+    IAVLNode x = this.root();
+    if (this.isEmpty()){
+      return null
+    }
+    while (x.getLeft() != this.ext){
+      x = x.getLeft();
+    }
+    return x.getValue();
+    }
    }
 
    /**
@@ -342,7 +350,7 @@ public class AVLTree {
     rightRotate(a.getRight());
     leftRotate(a);
   }
-  
+
   //Function to return the node which new node with key k should be inserted after.
   private static IAVLNode treePosition(IAVLNode x, int k) {
     IAVLNode y = x;
