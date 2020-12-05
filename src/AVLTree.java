@@ -572,6 +572,7 @@ public class AVLTree {
     // print2D(tree.getRoot());
     // tree.leftRotate(tree.getRoot());
     // print2D(tree.getRoot());
+    System.out.println("little change");
   }  
 }
 
