@@ -271,13 +271,14 @@ public class AVLTree {
    * or an empty array if the tree is empty.
    */
   public int[] keysToArray() {
-    int[] arr = new int[(int)Math.pow(2,this.root.getHeight()+1)-1]; // initialize arr with size of max tree
+    // int[] arr = new int[(int)Math.pow(2,this.root.getHeight()+1)-1]; // initialize arr with size of max tree
+    int[] arr = new int[this.size()];
     int[] position = {0}; // maintain array insertion position inside recursion
     keysToArray_rec(this.root, arr, position); //recursive function to update arr values as required
-    int[] newArr = new int[position[0]]; //copy arr content to newArr actual tree size
-    for (int i = 0; i<position[0]; i++){
-      newArr[i] = arr[i];
-    }
+    // int[] newArr = new int[position[0]]; //copy arr content to newArr actual tree size
+    // for (int i = 0; i<position[0]; i++){
+    //   newArr[i] = arr[i];
+    // }
     return newArr;
   }
 
@@ -299,15 +300,15 @@ public class AVLTree {
    * sorted by their respective keys,
    * or an empty array if the tree is empty.
    */
-  public String[] infoToArray()
-  {
-    String[] arr = new String[(int)Math.pow(2,this.root.getHeight()+1)-1]; // initialize arr with size of max tree
+  public String[] infoToArray() {
+  //String[] arr = new String[(int)Math.pow(2,this.root.getHeight()+1)-1]; // initialize arr with size of max tree
+    String[] arr = new String[this.size()];
     int[] position = {0}; // maintain array insertion position inside recursion
     infoToArray_rec(this.root, arr, position); //recursive function to update arr values as required
-    String[] newArr = new String[position[0]]; //copy arr content to newArr actual tree size
-    for (int i = 0; i<position[0]; i++){
-      newArr[i] = arr[i];
-    }
+    // String[] newArr = new String[position[0]]; //copy arr content to newArr actual tree size
+    // for (int i = 0; i<position[0]; i++){
+    //   newArr[i] = arr[i];
+    // }
     return newArr;
   }
 
