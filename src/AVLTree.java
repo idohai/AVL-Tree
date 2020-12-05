@@ -21,9 +21,9 @@ public class AVLTree {
    */
   public boolean empty() {
     if (this.getRoot() == null){
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
 
  /**
@@ -213,44 +213,6 @@ public class AVLTree {
     return opCnt;
   }
 
-  private void leftLeft(IAVLNode a){
-    rightRotate(a);
-  }
-
-  private void leftRight(IAVLNode a){
-    leftRotate(a.getLeft());
-    rightRotate(a);
-  }
-
-  private void rightRight(IAVLNode a){
-    leftRotate(a);
-  }
-
-  private void rightLeft(IAVLNode a){
-    rightRotate(a.getRight());
-    leftRotate(a);
-  }
-
-  private static IAVLNode treePosition(IAVLNode x, int k) {
-    IAVLNode y = x;
-    while (x != null){
-      if (x.getKey() == -1){
-        break;
-      }
-      y = x;
-      if (k == x.getKey()){
-        return x;
-      }
-      else if (k < x.getKey()){
-        x = x.getLeft();
-      }
-      else{
-        x = x.getRight();
-      }
-    }
-    return y;
-  }
-
   /**
    * public int delete(int k)
    *
@@ -362,31 +324,45 @@ public class AVLTree {
 	   return 0; 
    }
 // MINEEEEEE
-   // public String printTree(IAVLNode root, int position){
-   //  if (root == null){
-   //    return null;
-   //  }
-   //  else{
-   //    int i;
-   //    String s = "";
-   //    for (i; i<100; i++){
-   //      if (i == 100/position){
-   //        s.concat(root.getKey());
-   //      }
-   //      else{
-   //      s.concat(" ");
-   //      }
-   //    }
-   //      System.out.println(s);
-   //      String e = "";
-   //      e.concat(root.getLeft());
-   //      for (i=0; i<position*2; i++){
-   //        e.concat(" ");
-   //      }
-   //      e.concat(root.getRight());
-   //      System.out.println(printTree(e));
-   //  }
-   // }
+  //4 functions to handle 4 unbalance tree cases:
+  private void leftLeft(IAVLNode a){
+    rightRotate(a);
+  }
+
+  private void leftRight(IAVLNode a){
+    leftRotate(a.getLeft());
+    rightRotate(a);
+  }
+
+  private void rightRight(IAVLNode a){
+    leftRotate(a);
+  }
+
+  private void rightLeft(IAVLNode a){
+    rightRotate(a.getRight());
+    leftRotate(a);
+  }
+  
+  //Function to return the node which new node with key k should be inserted after.
+  private static IAVLNode treePosition(IAVLNode x, int k) {
+    IAVLNode y = x;
+    while (x != null){
+      if (x.getKey() == -1){
+        break;
+      }
+      y = x;
+      if (k == x.getKey()){
+        return x;
+      }
+      else if (k < x.getKey()){
+        x = x.getLeft();
+      }
+      else{
+        x = x.getRight();
+      }
+    }
+    return y;
+  }
 
   // Function to print binary tree in 2D  
   // It does reverse inorder traversal  
