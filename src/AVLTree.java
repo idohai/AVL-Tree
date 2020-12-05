@@ -1,3 +1,4 @@
+import java.util.Arrays; // only for print
 /**
  *
  * AVLTree
@@ -10,6 +11,7 @@
 public class AVLTree {
   private IAVLNode ext = new AVLNode(-1);
   private IAVLNode root;
+  private IAVLNode mini, maxi;
 
   public AVLTree(){
   }
@@ -103,6 +105,8 @@ public class AVLTree {
       IAVLNode x = new AVLNode(k,i);
       if (this.root == null){
         this.root = x;
+        this.mini = x;
+        this.maxi = x;
         return 0;
       }
       IAVLNode position = treePosition(root, k);
@@ -121,6 +125,8 @@ public class AVLTree {
           position.setRight(x);
           x.setParent(position);
         }
+        if (k < mini.getKey()) {mini = x;}
+        if (k > maxi.getKey()) {maxi = x;}
       }
       return opCnt;
   // }
@@ -233,10 +239,15 @@ public class AVLTree {
     * Returns the info of the item with the smallest key in the tree,
     * or null if the tree is empty
     */
-   public String min()
-   {
-	   return "42"; // to be replaced by student code
-   }
+   public String min() {
+    if (this.mini == null){
+      return null;
+    }
+    else{
+    return this.mini.getValue();
+    }
+  }
+   
 
    /**
     * public String max()
@@ -244,10 +255,14 @@ public class AVLTree {
     * Returns the info of the item with the largest key in the tree,
     * or null if the tree is empty
     */
-   public String max() //update in insert + delete
-   {
-	   return "42"; // to be replaced by student code
-   }
+   public String max(){ //update in insert + delete
+	  if (this.maxi == null){
+      return null;
+    }
+    else{
+    return this.maxi.getValue();
+    }
+  }
 
   /**
    * public int[] keysToArray()
@@ -255,10 +270,27 @@ public class AVLTree {
    * Returns a sorted array which contains all keys in the tree,
    * or an empty array if the tree is empty.
    */
-  public int[] keysToArray()
-  {
-        int[] arr = new int[42]; // to be replaced by student code
-        return arr;              // to be replaced by student code
+  public int[] keysToArray() {
+    // int[] arr = new int[(int)Math.pow(2,this.root.getHeight()+1)-1]; // initialize arr with size of max tree
+    int[] arr = new int[this.size()];
+    int[] position = {0}; // maintain array insertion position inside recursion
+    keysToArray_rec(this.root, arr, position); //recursive function to update arr values as required
+    // int[] newArr = new int[position[0]]; //copy arr content to newArr actual tree size
+    // for (int i = 0; i<position[0]; i++){
+    //   newArr[i] = arr[i];
+    // }
+    return newArr;
+  }
+
+  private void keysToArray_rec(IAVLNode x, int[] arr, int[] position){
+    if (x == null || x == this.ext){
+    }
+    else{
+    keysToArray_rec(x.getLeft(), arr, position);
+    arr[position[0]] = x.getKey();
+    position[0] += 1;
+    keysToArray_rec(x.getRight(), arr, position);
+    }
   }
 
   /**
@@ -268,10 +300,27 @@ public class AVLTree {
    * sorted by their respective keys,
    * or an empty array if the tree is empty.
    */
-  public String[] infoToArray()
-  {
-        String[] arr = new String[42]; // to be replaced by student code
-        return arr;                    // to be replaced by student code
+  public String[] infoToArray() {
+  //String[] arr = new String[(int)Math.pow(2,this.root.getHeight()+1)-1]; // initialize arr with size of max tree
+    String[] arr = new String[this.size()];
+    int[] position = {0}; // maintain array insertion position inside recursion
+    infoToArray_rec(this.root, arr, position); //recursive function to update arr values as required
+    // String[] newArr = new String[position[0]]; //copy arr content to newArr actual tree size
+    // for (int i = 0; i<position[0]; i++){
+    //   newArr[i] = arr[i];
+    // }
+    return newArr;
+  }
+
+  private void infoToArray_rec(IAVLNode x, String[] arr, int[] position){
+    if (x == null || x == this.ext){
+    }
+    else{
+    infoToArray_rec(x.getLeft(), arr, position);
+    arr[position[0]] = x.getValue();
+    position[0] += 1;
+    infoToArray_rec(x.getRight(), arr, position);
+    }
   }
 
    /**
@@ -342,7 +391,7 @@ public class AVLTree {
     rightRotate(a.getRight());
     leftRotate(a);
   }
-  
+
   //Function to return the node which new node with key k should be inserted after.
   private static IAVLNode treePosition(IAVLNode x, int k) {
     IAVLNode y = x;
@@ -519,11 +568,11 @@ public class AVLTree {
   }
     public static void main(String args[]){
     AVLTree tree = new AVLTree();
-    tree.insert(5,"");
-    tree.insert(1,"");
-    tree.insert(3,"");
-    tree.insert(2,"");
-    tree.insert(7,"");
+    tree.insert(5,"5");
+    tree.insert(1,"1");
+    tree.insert(3,"3");
+    tree.insert(2,"2");
+    tree.insert(7,"7");
     System.out.println("tree before rotation: ");
     print2D(tree.getRoot(), tree); 
     tree.rightRotate(tree.getRoot().getLeft().getRight());
@@ -531,6 +580,11 @@ public class AVLTree {
     System.out.println("tree after Right-Left Rotation: ");
     print2D(tree.getRoot(), tree);
     System.out.println(treePosition(tree.getRoot(), 7).getKey());
+    tree.getRoot().setHeight(2);
+    int[] array = tree.keysToArray();
+    System.out.println(Arrays.toString(array));
+    String[] valueArray = tree.infoToArray();
+    System.out.println(Arrays.toString(valueArray));
     // System.out.println (tree.getRoot().getParent());
     // System.out.println(tree.getRoot().getLeft().getKey());
     // tree.rightRotate(tree.getRoot()); 
