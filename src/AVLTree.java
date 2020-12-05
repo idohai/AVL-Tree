@@ -555,7 +555,6 @@ public class AVLTree {
     System.out.println("tree after Right-Left Rotation: ");
     print2D(tree.getRoot(), tree);
     System.out.println(treePosition(tree.getRoot(), 7).getKey());
-    System.out.println(tree.getRoot().getRight().getHeight());
     // System.out.println (tree.getRoot().getParent());
     // System.out.println(tree.getRoot().getLeft().getKey());
     // tree.rightRotate(tree.getRoot()); 
@@ -572,7 +571,6 @@ public class AVLTree {
     // print2D(tree.getRoot());
     // tree.leftRotate(tree.getRoot());
     // print2D(tree.getRoot());
-    System.out.println("little changee");
   }  
 }
 
